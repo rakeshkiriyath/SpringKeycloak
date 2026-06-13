@@ -11,7 +11,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class SpringKeycloakApplication {
 
 	public static void main(String[] args) {
+		
 		SpringApplication.run(SpringKeycloakApplication.class, args);
+		
 	}
 
 }
