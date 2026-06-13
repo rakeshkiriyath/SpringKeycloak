@@ -1,0 +1,132 @@
+{
+  "realm": "university-realm",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "roles": {
+    "realm": [
+      { "name": "PROFESSOR" },
+      { "name": "STUDENT" }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "professor-app-client",
+      "name": "Professor App",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "professor-app-secret",
+      "redirectUris": [ "http://localhost:8082/login/oauth2/code/keycloak" ],
+      "webOrigins": [ "http://localhost:8082" ],
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "fullScopeAllowed": true,
+      "attributes": {
+        "post.logout.redirect.uris": "http://localhost:8082##http://localhost:8082/*"
+      },
+      "defaultClientScopes": [ "web-origins", "acr", "profile", "roles", "email" ],
+      "protocolMappers": [
+        {
+          "name": "realm roles to ID token",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "realm_access.roles",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "student-app-client",
+      "name": "Student App",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "student-app-secret",
+      "redirectUris": [ "http://localhost:8080/login/oauth2/code/keycloak" ],
+      "webOrigins": [ "http://localhost:8080" ],
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "fullScopeAllowed": true,
+      "attributes": {
+        "post.logout.redirect.uris": "http://localhost:8080##http://localhost:8080/*"
+      },
+      "defaultClientScopes": [ "web-origins", "acr", "profile", "roles", "email" ],
+      "protocolMappers": [
+        {
+          "name": "realm roles to ID token",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "realm_access.roles",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "john",
+      "enabled": true,
+      "email": "john.student@university.com",
+      "firstName": "John",
+      "lastName": "Smith",
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "password", "temporary": false }
+      ],
+      "realmRoles": [ "STUDENT" ]
+    },
+    {
+      "username": "sachin",
+      "enabled": true,
+      "email": "sachin.professor@university.com",
+      "firstName": "Sachin",
+      "lastName": "Dave",
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "password", "temporary": false }
+      ],
+      "realmRoles": [ "PROFESSOR" ]
+    },
+    {
+      "username": "deepak",
+      "enabled": true,
+      "email": "deepak.student@university.com",
+      "firstName": "Deepak",
+      "lastName": "Kumar",
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "password", "temporary": false }
+      ],
+      "realmRoles": [ "STUDENT" ]
+    },
+    {
+      "username": "naresh",
+      "enabled": true,
+      "email": "naresh.student@university.com",
+      "firstName": "Naresh",
+      "lastName": "J",
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "password", "temporary": false }
+      ],
+      "realmRoles": [ "STUDENT" ]
+    }
+  ]
+}
