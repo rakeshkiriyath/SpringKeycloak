@@ -22,7 +22,8 @@ public class SpringSecurityConfig {
 
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login").permitAll()
+                .requestMatchers("/login", "/access-denied").permitAll()
+                .requestMatchers("/manageStudents").hasRole("PROFESSOR")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -30,7 +31,8 @@ public class SpringSecurityConfig {
                 .defaultSuccessUrl("/home", true)
                 .permitAll()
             )
-            .logout(logout -> logout.permitAll());
+            .logout(logout -> logout.permitAll())
+            .exceptionHandling(exception -> exception.accessDeniedPage("/access-denied"));
 
         return http.build();
     }
