@@ -131,26 +131,26 @@
 </head>
 <body>
     <div class="profile-card">
-        <div class="avatar" th:text="${#strings.substring(user.firstName,0,1)}">U</div>
-        <h1 th:text="${user.firstName + ' ' + (user.lastName != null ? user.lastName : '')}">Full Name</h1>
+        <div class="avatar" th:text="${#strings.substring(firstName,0,1)}">U</div>
+        <h1 th:text="${firstName + ' ' + (lastName != null ? lastName : '')}">Full Name</h1>
         <p class="subtitle">Welcome back!</p>
 
         <div class="details">
             <div class="detail-row">
                 <span class="label">Username</span>
-                <span class="value" th:text="${user.username}">username</span>
+                <span class="value" th:text="${username}">username</span>
             </div>
             <div class="detail-row">
                 <span class="label">Email</span>
-                <span class="value" th:text="${user.email}">email@example.com</span>
+                <span class="value" th:text="${email}">email@example.com</span>
             </div>
             <div class="detail-row">
                 <span class="label">First Name</span>
-                <span class="value" th:text="${user.firstName}">First</span>
+                <span class="value" th:text="${firstName}">First</span>
             </div>
             <div class="detail-row">
                 <span class="label">Last Name</span>
-                <span class="value" th:text="${user.lastName}">Last</span>
+                <span class="value" th:text="${lastName}">Last</span>
             </div>
         </div>
 

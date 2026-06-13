@@ -3,7 +3,8 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,18 +21,18 @@ public class StudentController {
 		this.userRepository = userRepository;
 	}
 
-	@GetMapping(value = {"/","/login"})
-	public ModelAndView login() {
-		ModelAndView modelAndView = new ModelAndView("login");
-		return modelAndView;
+	@GetMapping("/")
+	public ModelAndView index() {
+		return new ModelAndView("redirect:/home");
 	}
 
 	@GetMapping("/home")
-	public ModelAndView home(Authentication authentication) {
+	public ModelAndView home(@AuthenticationPrincipal OidcUser principal) {
 		ModelAndView modelAndView = new ModelAndView("home");
-		User user = userRepository.findByUsername(authentication.getName())
-				.orElseThrow(() -> new IllegalStateException("Logged in user not found: " + authentication.getName()));
-		modelAndView.addObject("user", user);
+		modelAndView.addObject("firstName", principal.getGivenName());
+		modelAndView.addObject("lastName", principal.getFamilyName());
+		modelAndView.addObject("email", principal.getEmail());
+		modelAndView.addObject("username", principal.getPreferredUsername());
 		return modelAndView;
 	}
 

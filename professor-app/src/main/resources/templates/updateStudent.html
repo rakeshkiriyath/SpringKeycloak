@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Update Student</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        .login-card {
+        .form-card {
             background: #ffffff;
             border-radius: 12px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
@@ -29,17 +29,10 @@
             padding: 40px 32px;
         }
 
-        .login-card h1 {
+        .form-card h1 {
             text-align: center;
             color: #333;
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        .login-card p.subtitle {
-            text-align: center;
-            color: #888;
-            font-size: 14px;
+            font-size: 24px;
             margin-bottom: 24px;
         }
 
@@ -70,7 +63,7 @@
             box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.15);
         }
 
-        .btn-login {
+        .btn-save {
             width: 100%;
             padding: 12px;
             border: none;
@@ -84,54 +77,50 @@
             margin-top: 8px;
         }
 
-        .btn-login:hover {
+        .btn-save:hover {
             opacity: 0.9;
         }
 
-        .alert {
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            margin-bottom: 18px;
+        .back-link {
+            display: block;
             text-align: center;
+            margin-top: 16px;
+            color: #764ba2;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
         }
 
-        .alert-error {
-            background: #fdecea;
-            color: #c0392b;
-            border: 1px solid #f5c6cb;
-        }
-
-        .alert-success {
-            background: #eafaf1;
-            color: #1e8449;
-            border: 1px solid #c3e6cb;
+        .back-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="login-card">
-        <h1>Welcome Back</h1>
-        <p class="subtitle">Sign in to continue</p>
+    <div class="form-card">
+        <h1>Update Student</h1>
 
-        <div class="alert alert-error" th:if="${param.error}">
-            Invalid username or password.
-        </div>
-        <div class="alert alert-success" th:if="${param.logout}">
-            You have been logged out successfully.
-        </div>
-
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/updateStudent/{id}(id=${student.id})}" method="post">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" th:value="${student.firstName}" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" th:value="${student.lastName}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" th:value="${student.email}" required>
+            </div>
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required autofocus>
+                <input type="text" id="username" name="username" th:value="${student.username}" required>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </div>
-            <button type="submit" class="btn-login">Sign In</button>
+            <button type="submit" class="btn-save">Save Changes</button>
         </form>
+
+        <a class="back-link" th:href="@{/manageStudents}">&larr; Back to Manage Students</a>
     </div>
 </body>
 </html>
